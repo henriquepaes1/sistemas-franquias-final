@@ -1,20 +1,30 @@
 package com.henriquepaes1.sistemafranquias.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_user")
 public class Client implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String name;
-	private Date birthDate;
+	private LocalDate birthDate;
 	private String email;
 	private String phone;
 	private String password;
 
-	public Client(long id, String name, Date birthDate, String email, String phone, String password) {
+	public Client(Long id, String name, LocalDate birthDate, String email, String phone, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,11 +50,11 @@ public class Client implements Serializable{
 		this.name = name;
 	}
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 
