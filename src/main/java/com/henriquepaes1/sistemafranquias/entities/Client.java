@@ -23,9 +23,12 @@ public class Client implements Serializable{
 	private String email;
 	private String phone;
 	private String password;
+	
+	public Client() {
+		
+	}
 
 	public Client(Long id, String name, LocalDate birthDate, String email, String phone, String password) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.birthDate = birthDate;
