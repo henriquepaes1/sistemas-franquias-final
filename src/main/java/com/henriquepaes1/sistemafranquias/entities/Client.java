@@ -2,12 +2,17 @@ package com.henriquepaes1.sistemafranquias.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,8 +29,11 @@ public class Client implements Serializable{
 	private String phone;
 	private String password;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="client")
+	private List<Order> orders = new ArrayList<>();
+	
 	public Client() {
-		
 	}
 
 	public Client(Long id, String name, LocalDate birthDate, String email, String phone, String password) {
@@ -84,6 +92,10 @@ public class Client implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
 
 	@Override
 	public int hashCode() {
@@ -103,6 +115,8 @@ public class Client implements Serializable{
 				&& Objects.equals(name, other.name) && Objects.equals(password, other.password)
 				&& Objects.equals(phone, other.phone);
 	}
+
+	
 	
 	
 	

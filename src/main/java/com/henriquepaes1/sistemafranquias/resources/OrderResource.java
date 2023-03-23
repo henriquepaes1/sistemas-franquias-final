@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.henriquepaes1.sistemafranquias.entities.Client;
-import com.henriquepaes1.sistemafranquias.services.ClientService;
+import com.henriquepaes1.sistemafranquias.entities.Order;
+import com.henriquepaes1.sistemafranquias.services.OrderService;
 
 @RestController
-@RequestMapping(value="/clients")
-public class ClientResource {
+@RequestMapping(value="/orders")
+public class OrderResource {
 	
 	@Autowired
-	ClientService clientService;
+	OrderService orderService;
 	
 	@GetMapping
-	public ResponseEntity<List<Client>> findAll(){
+	public ResponseEntity<List<Order>> findAll(){
 		
-		List<Client> clientList = clientService.findAll();
-		return ResponseEntity.ok().body(clientList);
+		List<Order> OrderList = orderService.findAll();
+		return ResponseEntity.ok().body(OrderList);
 	}
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<Client> findById(@PathVariable Long id){
+	public ResponseEntity<Order> findById(@PathVariable Long id){
 		
-		Client client = clientService.findById(id);
-		return ResponseEntity.ok().body(client);	
+		Order order = orderService.findById(id);
+		return ResponseEntity.ok().body(order);	
 	}
 
 }
