@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.henriquepaes1.sistemafranquias.entities.Client;
 import com.henriquepaes1.sistemafranquias.services.ClientService;
+import com.henriquepaes1.sistemafranquias.services.exceptions.DatabaseException;
 
 @RestController
 @RequestMapping(value="/clients")
@@ -51,7 +53,12 @@ public class ClientResource {
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
-		clientService.delete(id);	
+		try {
+			clientService.delete(id);
+		} catch(DataIntegrityViolationException e){
+			throw new DatabaseException(e.getMessage());
+		}
+			
 		return ResponseEntity.noContent().build();
 	}
 	
